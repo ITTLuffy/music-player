@@ -147,8 +147,6 @@ body {
     background-color: transparent;
     border: none;
     border-radius: 50%;
-    width: 45px; /* Adjusted size */
-    height: 45px; /* Adjusted size */
     cursor: pointer;
     transition: background 0.2s ease, transform 0.15s;
     color: rgba(252, 252, 252, 0.9);
@@ -165,12 +163,6 @@ body {
     fill: currentColor;
     width: 28px; /* Adjusted icon size */
     height: 28px; /* Adjusted icon size */
-}
-
-/*bottone play - pause*/
-.controls .play-button {
-    width: 55px; /* Larger play button */
-    height: 55px; /* Larger play button */
 }
 
 .controls .play-button svg {
