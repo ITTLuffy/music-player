@@ -1,0 +1,394 @@
+/* reset */
+*,
+*:before,
+*:after {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* variabili */
+:root {
+    --primary-color: #9212d6;
+    --secondary-color: #e26fc3;
+    --color: #fff;
+}
+
+/* stile base */
+body {
+    font-family: 'Roboto', sans-serif;
+    font-size: 16px;
+    line-height: 1.5;
+    color: var(--color);
+    background-color: var(--primary-color);
+    display: flex; /* Added to help center player */
+    justify-content: center; /* Added to help center player */
+    align-items: flex-start; /* Align player to top */
+    min-height: 100vh; /* Ensure body takes full height */
+    padding-top: 20px; /* Add some space at the top */
+}
+
+/*stile player*/
+.player {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    max-width: 380px; /* Slightly reduced max-width for a more compact look like screenshot */
+    padding: 20px;
+    border-radius: 15px;
+    background: linear-gradient(#590d81, #1b0227);
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.3);
+    /* margin-top: 10px; Removed, handled by body centering */
+    /* margin-left: 10px; Removed, handled by body centering */
+    padding-bottom: 25px; /* Adjusted padding */
+    position: relative;
+}
+
+/* immagine */
+.cover {
+    width: 100%;
+    border-radius: 8px; /* Added rounded corners to cover */
+    overflow: hidden; /* Ensure image respects border-radius */
+}
+
+.cover img {
+    width: 100%;
+    object-fit: cover;
+    height: auto;
+    display: block; /* Remove extra space below image */
+}
+
+.upperPart-container {
+    display: flex;
+    width: 100%;
+    /* height: 200%; This seems excessive, removing */
+    justify-content: flex-end;
+    align-items: flex-start;
+    position: relative;
+    margin-bottom: 15px; /* Add some space below cover/playlist button area */
+}
+
+/* Fixed playlist button positioning and hover alignment */
+.playlist-button {
+    position: absolute;
+    top: 10px; /* Adjusted position */
+    right: 10px; /* Adjusted position */
+    width: 36px; /* Fixed width for better centering */
+    height: 36px; /* Fixed height for better centering */
+    padding: 0; /* Reset padding */
+    display: flex; /* Use flexbox for centering */
+    justify-content: center; /* Center horizontally */
+    align-items: center; /* Center vertically */
+    color: white;
+    background-color: rgba(0,0,0,0.3);
+    border: none;
+    cursor: pointer;
+    border-radius: 6px;
+    z-index: 5; /* Ensure it's above cover */
+    transition: background-color 0.2s ease, transform 0.2s ease;
+}
+
+.playlist-button:hover {
+    background-color: rgba(255, 255, 255, 0.3);
+    transform: scale(1.1);
+}
+
+.playlist-icon {
+    width: 1.2rem; /* Slightly larger icon */
+    height: 1.2rem; /* Slightly larger icon */
+    color: white;
+    cursor: pointer;
+}
+
+/* titolo e artista */
+.info {
+    text-align: center; /* Center title and artist */
+    margin-bottom: 15px; /* Add space below info */
+}
+
+.title {
+    font-family: 'Merriweather', serif;
+    font-size: 1.8rem; /* Adjusted size */
+    margin-top: 10px;
+    margin-bottom: 5px; /* Space between title and artist */
+}
+
+.artist {
+    font-size: 0.9rem;
+    font-weight: normal;
+    color: rgba(255, 255, 255, 0.7);
+}
+
+/* hidden */
+.hidden {
+    display: none !important; /* Ensure hidden class works */
+}
+
+.audio {
+    display: none;
+}
+
+/*resetto allineamenti*/
+.controls {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 20px; /* Increased gap */
+    margin-bottom: 15px; /* Add space below controls */
+}
+
+/*stile base controlli*/
+.controls button {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: transparent;
+    border: none;
+    border-radius: 50%;
+    width: 45px; /* Adjusted size */
+    height: 45px; /* Adjusted size */
+    cursor: pointer;
+    transition: background 0.2s ease, transform 0.15s;
+    color: rgba(252, 252, 252, 0.9);
+}
+
+/*hover controlli*/
+.controls button:hover {
+    background-color: rgba(255, 255, 255, 0.2);
+    transform: scale(1.1);
+}
+
+/*icona controlli*/
+.controls button svg {
+    fill: currentColor;
+    width: 28px; /* Adjusted icon size */
+    height: 28px; /* Adjusted icon size */
+}
+
+/*bottone play - pause*/
+.controls .play-button {
+    width: 55px; /* Larger play button */
+    height: 55px; /* Larger play button */
+}
+
+.controls .play-button svg {
+    width: 35px; /* Larger play icon */
+    height: 35px; /* Larger play icon */
+    color: var(--color); /* Changed from primary-color to white for better visibility */
+}
+
+/* Fixed progress bar to match volume bar behavior */
+.progress-container {
+    width: 100%; /* Use full width of player */
+    height: 8px; /* Slightly thicker bar */
+    background: rgba(255, 255, 255, 0.2);
+    border-radius: 4px;
+    margin-top: 10px;
+    cursor: pointer;
+    position: relative;
+    margin-bottom: 10px; /* Reduced margin-bottom as time is part of it */
+    z-index: 1;
+}
+
+.progress-bar {
+    width: 0; /* Initial width */
+    height: 100%;
+    background: var(--secondary-color); /* Use theme color */
+    border-radius: 4px;
+}
+
+.progress-handle {
+    position: absolute;
+    width: 16px; /* Larger handle */
+    height: 16px; /* Larger handle */
+    background: white;
+    border-radius: 50%;
+    top: 50%;
+    left: 0; /* Start at left */
+    transform: translate(-50%, -50%);
+    cursor: grab;
+    z-index: 2;
+    box-shadow: 0 0 5px rgba(0,0,0,0.3); /* Add shadow to handle */
+}
+
+/* Moved time outside of progress-container for better layout */
+.time {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    font-size: 0.8rem;
+    color: rgba(255, 255, 255, 0.7);
+    margin-top: 8px; /* Space above time */
+    padding: 0 5px; /* Add some padding to time */
+}
+
+/*volume*/
+.volume-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    margin-top: 20px; /* Increased margin top */
+}
+
+.volume-controls {
+    display: flex;
+    align-items: center;
+    width: 100%;
+    max-width: 300px; /* Limit width of volume controls */
+}
+
+.volume-button {
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 5px; /* Added padding */
+    width: auto;
+    height: auto;
+    color: white;
+    transition: transform 0.2s ease;
+}
+
+.volume-button:hover {
+    transform: scale(1.1);
+    background-color: rgba(255, 255, 255, 0.1);
+    border-radius: 6px;
+}
+
+.volume-button svg {
+    width: 1.4rem; /* Adjusted icon size */
+    height: 1.4rem;
+    vertical-align: middle;
+}
+
+.volume-bar {
+    background-color: rgba(255, 255, 255, 0.2);
+    border-radius: 4px;
+    height: 8px; /* Match progress bar thickness */
+    flex-grow: 1;
+    margin: 0 10px;
+    position: relative;
+    cursor: pointer;
+    z-index: 1;
+}
+
+.volume-progress {
+    background-color: var(--secondary-color); /* Use theme color */
+    border-radius: 4px;
+    height: 100%;
+    width: 0%; /* Initial width */
+    position: absolute;
+    top: 0;
+    left: 0;
+}
+
+.volume-handle {
+    position: absolute;
+    width: 16px; /* Match progress handle */
+    height: 16px; /* Match progress handle */
+    background: white;
+    border-radius: 50%;
+    top: 50%;
+    left: 0; /* Start at left */
+    transform: translate(-50%, -50%);
+    cursor: grab;
+    z-index: 2;
+    box-shadow: 0 0 5px rgba(0,0,0,0.3); /* Add shadow to handle */
+}
+
+#volume {
+    font-size: 0.8rem; /* Adjusted size */
+    color: rgba(255, 255, 255, 0.7);
+    margin-left: 10px;
+    min-width: 35px; /* Ensure space for 100% */
+    text-align: right;
+}
+
+/* Playlist Styles */
+.playlist-container {
+    width: 95%; /* Relative to player width */
+    margin: 15px auto; /* Centered with margin */
+    background: rgba(0, 0, 0, 0.5); /* Darker background for better readability */
+    border-radius: 8px;
+    padding: 15px;
+    max-height: 250px; /* Adjusted max height */
+    overflow-y: auto;
+    box-shadow: 0px 4px 12px rgba(0,0,0,0.4);
+    /* Removed absolute positioning for now, will be part of player flow */
+}
+
+.playlist-container h3 {
+    color: white;
+    margin-bottom: 12px;
+    text-align: center;
+    font-size: 1.1rem;
+}
+
+.playlist-items {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.playlist-item {
+    display: flex;
+    align-items: center;
+    padding: 10px;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: background 0.2s ease;
+    background-color: rgba(255,255,255,0.05);
+}
+
+.playlist-item:hover {
+    background: rgba(255, 255, 255, 0.15);
+}
+
+.playlist-item.active-track {
+    background: var(--secondary-color);
+    /* border-left: 3px solid var(--primary-color); /* Alternative highlight */
+    color: white;
+}
+
+.playlist-item.active-track .playlist-item-artist {
+    color: rgba(255,255,255,0.8);
+}
+
+.playlist-item-cover {
+    width: 45px;
+    height: 45px;
+    border-radius: 4px;
+    object-fit: cover;
+    margin-right: 12px;
+}
+
+.playlist-item-info {
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1; /* Allow text to take available space */
+    overflow: hidden; /* Prevent text overflow issues */
+}
+
+.playlist-item-title {
+    font-weight: bold;
+    font-size: 0.9rem;
+    white-space: nowrap; /* Prevent wrapping */
+    overflow: hidden;
+    text-overflow: ellipsis; /* Add ellipsis for long titles */
+}
+
+.playlist-item-artist {
+    font-size: 0.8rem;
+    color: rgba(255, 255, 255, 0.7);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+/* Dragging class for body */
+body.dragging {
+    cursor: grabbing !important;
+    user-select: none; /* Prevent text selection while dragging */
+}
