@@ -6,6 +6,7 @@ import React, {
     type TouchEvent as ReactTouchEvent
 } from 'react';
 
+// Interface for track data
 interface Track {
     id: number;
     title: string;
@@ -14,6 +15,7 @@ interface Track {
     url: string;
 }
 
+// Array of track data
 const tracksData: Track[] = [
     {
         id: 1,
@@ -31,6 +33,7 @@ const tracksData: Track[] = [
     },
 ];
 
+// Player component
 const Player: React.FC = () => {
     const [tracks] = useState<Track[]>(tracksData);
     const [currentTrackIndex, setCurrentTrackIndex] = useState<number>(0);
